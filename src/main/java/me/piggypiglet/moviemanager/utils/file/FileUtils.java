@@ -1,5 +1,8 @@
 package me.piggypiglet.moviemanager.utils.file;
 
+import me.piggypiglet.moviemanager.MovieManager;
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -27,6 +30,16 @@ public final class FileUtils {
     public static String readFileToString(File file) {
         try {
             return org.apache.commons.io.FileUtils.readFileToString(file, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String readEmbedToString(String path) {
+        try {
+            return IOUtils.toString(MovieManager.class.getResourceAsStream(path), "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
         }

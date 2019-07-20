@@ -6,6 +6,7 @@ import co.aikar.idb.PooledDatabaseOptions;
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
 import me.piggypiglet.moviemanager.guice.annotations.Config;
+import me.piggypiglet.moviemanager.guice.annotations.SQL;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.task.Task;
 import org.slf4j.LoggerFactory;
@@ -16,12 +17,13 @@ import org.slf4j.LoggerFactory;
 // ------------------------------
 public final class MySQLRegisterable extends Registerable {
     @Inject @Config private FileConfiguration config;
+    @Inject @SQL private String sql;
 
     @Override
     protected void execute() {
         Task.async(r -> {
-            final String[] tables = {};
-            final String[] schemas = {};
+            final String[] tables = {"data"};
+            final String[] schemas = sql.split("-");
 
             DatabaseOptions options = DatabaseOptions.builder().mysql(
                     config.getString("mysql.username"),

@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.file.FileManager;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
 import me.piggypiglet.moviemanager.guice.annotations.Config;
+import me.piggypiglet.moviemanager.guice.annotations.SQL;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 
 // ------------------------------
@@ -16,7 +17,8 @@ public final class FilesRegisterable extends Registerable {
     @Override
     protected void execute() {
         try {
-            addAnnotatedBinding(FileConfiguration.class, Config.class, fileManager.load("config", "/config.json", "./config.json"));
+            addAnnotatedBinding(FileConfiguration.class, Config.class, fileManager.loadConfig("config", "/config.json", "./config.json"));
+            addAnnotatedBinding(String.class, SQL.class, fileManager.loadFile("sql", "/schema.sql", null).getFileContent());
         } catch (Exception e) {
             e.printStackTrace();
         }
