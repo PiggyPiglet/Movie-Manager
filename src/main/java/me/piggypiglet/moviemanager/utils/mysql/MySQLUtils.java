@@ -77,6 +77,8 @@ public final class MySQLUtils {
     }
 
     public static boolean remove(String table, String[] keys, Object[] values) {
+        Preconditions.checkArgument(keys.length == values.length, "Key length doesn't match values length.");
+
         boolean success = false;
 
         try {
