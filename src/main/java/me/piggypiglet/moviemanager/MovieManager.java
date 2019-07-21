@@ -3,10 +3,7 @@ package me.piggypiglet.moviemanager;
 import com.google.inject.Injector;
 import me.piggypiglet.moviemanager.guice.modules.BindingSetterModule;
 import me.piggypiglet.moviemanager.registerables.Registerable;
-import me.piggypiglet.moviemanager.registerables.implementations.ConsoleRegisterable;
-import me.piggypiglet.moviemanager.registerables.implementations.FilesRegisterable;
-import me.piggypiglet.moviemanager.registerables.implementations.HTTPRegisterable;
-import me.piggypiglet.moviemanager.registerables.implementations.MySQLRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.*;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -24,6 +21,7 @@ public final class MovieManager {
                 FilesRegisterable.class,
                 HTTPRegisterable.class,
                 MySQLRegisterable.class,
+                ShutdownHookRegisterable.class,
                 ConsoleRegisterable.class
         ).forEach(r -> {
             Registerable registerable = injector.get().getInstance(r);

@@ -1,5 +1,6 @@
 package me.piggypiglet.moviemanager.task;
 
+import org.slf4j.LoggerFactory;
 import sh.okx.timeapi.TimeAPI;
 
 import java.util.concurrent.ExecutorService;
@@ -14,6 +15,7 @@ import java.util.function.Consumer;
 // ------------------------------
 public final class Task {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(13);
+    private static final ExecutorService MYSQL_EXECUTOR = Executors.newFixedThreadPool(10);
     private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(10);
 
     public static void async(final Consumer<GRunnable> task) {
@@ -36,7 +38,17 @@ public final class Task {
         }, timeAPI.getMilliseconds(), TimeUnit.MILLISECONDS);
     }
 
+    public static void mysql(final Consumer<GRunnable> task) {
+        MYSQL_EXECUTOR.submit(new GRunnable() {
+            @Override
+            public void run() {
+                task.accept(this);
+            }
+        });
+    }
+
     public static void shutdown() {
+        LoggerFactory.getLogger("Task").info("Shutting down executor services.");
         EXECUTOR.shutdownNow();
         SCHEDULER.shutdownNow();
     }
