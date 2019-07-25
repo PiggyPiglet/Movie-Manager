@@ -1,6 +1,6 @@
 package me.piggypiglet.moviemanager.mysql;
 
-import me.piggypiglet.moviemanager.mysql.components.Row;
+import me.piggypiglet.moviemanager.mysql.components.row.Row;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019

@@ -2,10 +2,7 @@ package me.piggypiglet.moviemanager.managers;
 
 import me.piggypiglet.moviemanager.utils.SearchUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -14,13 +11,7 @@ import java.util.Map;
 public abstract class Manager<T extends SearchUtils.Searchable> {
     protected final Map<Integer, T> items = new HashMap<>();
 
-    protected Manager(String route) {
-        populate(route);
-    }
-
-    private void populate(String route) {
-        //todo: populate items
-    }
+    protected abstract Map<Integer, T> populate(List<String> data);
 
     public Collection<T> search(String query) {
         return SearchUtils.search(new ArrayList<>(items.values()), query);
