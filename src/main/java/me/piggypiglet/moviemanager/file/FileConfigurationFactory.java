@@ -4,7 +4,7 @@ import me.piggypiglet.moviemanager.file.exceptions.UnknownConfigTypeException;
 import me.piggypiglet.moviemanager.file.framework.AbstractFileConfiguration;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
 import me.piggypiglet.moviemanager.file.implementations.json.JsonFileConfiguration;
-import me.piggypiglet.moviemanager.utils.file.FileUtils;
+import me.piggypiglet.moviemanager.utils.FileUtils;
 
 import java.io.File;
 

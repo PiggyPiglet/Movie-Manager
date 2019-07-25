@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.utils.mysql;
+package me.piggypiglet.moviemanager.utils;
 
 import co.aikar.idb.DB;
 import co.aikar.idb.DbRow;

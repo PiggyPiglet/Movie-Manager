@@ -1,6 +1,6 @@
 package me.piggypiglet.moviemanager.mysql.components;
 
-import me.piggypiglet.moviemanager.utils.mysql.MySQLUtils;
+import me.piggypiglet.moviemanager.utils.MySQLUtils;
 
 import java.util.concurrent.CompletableFuture;
 

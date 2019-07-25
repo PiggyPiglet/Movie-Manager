@@ -10,4 +10,9 @@ import me.piggypiglet.moviemanager.objects.Movie;
 // ------------------------------
 @Singleton
 public final class MovieManager extends Manager<Movie> {
+    public MovieManager() {
+        super("movie");
+    }
+
+
 }

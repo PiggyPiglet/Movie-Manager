@@ -5,7 +5,7 @@ import me.piggypiglet.moviemanager.MovieManagerBootstrap;
 import me.piggypiglet.moviemanager.file.framework.AbstractFileConfiguration;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
 import me.piggypiglet.moviemanager.file.objects.FileWrapper;
-import me.piggypiglet.moviemanager.utils.file.FileUtils;
+import me.piggypiglet.moviemanager.utils.FileUtils;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;

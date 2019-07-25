@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.utils.file;
+package me.piggypiglet.moviemanager.utils;
 
 import me.piggypiglet.moviemanager.MovieManager;
 import org.apache.commons.io.IOUtils;

@@ -16,8 +16,6 @@ public final class TestRoute extends Route {
 
     @Override
     protected JsonObject provide(Map<String, String> params) {
-        gson.
+        return null;
     }
-
-    private final
 }
