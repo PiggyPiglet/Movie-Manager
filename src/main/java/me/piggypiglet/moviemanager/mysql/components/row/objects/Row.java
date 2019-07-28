@@ -1,6 +1,4 @@
-package me.piggypiglet.moviemanager.mysql.components.row;
-
-import java.util.List;
+package me.piggypiglet.moviemanager.mysql.components.row.objects;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -23,11 +21,11 @@ public final class Row {
         return values;
     }
 
-    public static RowCreator.Builder creator(String table) {
-        return RowCreator.builder(table);
-    }
-
-    public static List<Row> get(String table) {
-        return RowGetter.builder(table);
-    }
+//    public static RowCreator.Builder creator(String table) {
+//        return RowCreator.builder(table);
+//    }
+//
+//    public static List<Row> get(String table) {
+//        return RowGetter.builder(table).execute();
+//    }
 }

@@ -1,6 +1,7 @@
 package me.piggypiglet.moviemanager.mysql.components.row;
 
 import me.piggypiglet.moviemanager.mysql.components.MySQLComponent;
+import me.piggypiglet.moviemanager.mysql.components.row.objects.Row;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -9,9 +10,17 @@ import java.util.concurrent.CompletableFuture;
 // https://www.piggypiglet.me
 // ------------------------------
 public final class RowCreator extends MySQLComponent {
-    private RowCreator() {}
+    private final String table;
+    private final String[] keys;
+    private final Object[] values;
 
-    static Builder builder(String table) {
+    private RowCreator(String table, String[] keys, Object[] values) {
+        this.table = table;
+        this.keys = keys;
+        this.values = values;
+    }
+
+    public static Builder builder(String table) {
         return new Builder(table);
     }
 
@@ -34,9 +43,12 @@ public final class RowCreator extends MySQLComponent {
             return this;
         }
 
-        public CompletableFuture<Boolean> execute() {
-            Row row = new Row(keys, values);
-            return new RowCreator().create(table, row);
+        public RowCreator build() {
+            return new RowCreator(table, keys, values);
         }
+    }
+
+    public CompletableFuture<Boolean> execute() {
+        return create(table, new Row(keys, values));
     }
 }

@@ -1,6 +1,7 @@
 package me.piggypiglet.moviemanager.mysql;
 
-import me.piggypiglet.moviemanager.mysql.components.row.Row;
+import me.piggypiglet.moviemanager.mysql.components.row.RowCreator;
+import me.piggypiglet.moviemanager.mysql.components.row.RowGetter;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -13,7 +14,11 @@ public abstract class Table {
         this.table = table;
     }
 
-    protected Row.RowBuilder create() {
-        return Row.builder(table);
+    protected RowCreator.Builder create() {
+        return RowCreator.builder(table);
+    }
+
+    protected RowGetter.Builder getter() {
+        return RowGetter.builder(table);
     }
 }

@@ -1,7 +1,7 @@
 package me.piggypiglet.moviemanager.mysql.components;
 
 import co.aikar.idb.DbRow;
-import me.piggypiglet.moviemanager.mysql.components.row.Row;
+import me.piggypiglet.moviemanager.mysql.components.row.objects.Row;
 import me.piggypiglet.moviemanager.utils.MySQLUtils;
 
 import java.util.List;
@@ -19,6 +19,4 @@ public abstract class MySQLComponent {
     protected CompletableFuture<List<DbRow>> getAll(String table) {
         return MySQLUtils.getRows(table);
     }
-
-    public abstract Object execute();
 }

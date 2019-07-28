@@ -21,6 +21,7 @@ public final class MovieManager {
                 FilesRegisterable.class,
                 HTTPRegisterable.class,
                 MySQLRegisterable.class,
+                RoutesRegisterable.class,
                 ShutdownHookRegisterable.class,
                 ConsoleRegisterable.class
         ).forEach(r -> {

@@ -2,8 +2,8 @@ package me.piggypiglet.moviemanager.http.routes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
+import java.util.List;
 import java.util.Map;
 
 // ------------------------------
@@ -19,9 +19,13 @@ public abstract class Route {
         this.route = route;
     }
 
-    protected abstract JsonObject provide(Map<String, String> params);
+    protected abstract String provide(Map<String, List<String>> params);
 
-    public JsonObject run(Map<String, String> params) {
+    public String run(Map<String, List<String>> params) {
         return provide(params);
+    }
+
+    public String getRoute() {
+        return route;
     }
 }
