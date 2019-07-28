@@ -4,6 +4,8 @@ import com.google.inject.Injector;
 import me.piggypiglet.moviemanager.guice.modules.BindingSetterModule;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.registerables.implementations.*;
+import me.piggypiglet.moviemanager.registerables.implementations.imdb.ManagersRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.imdb.TMDBRegisterable;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,9 +21,11 @@ public final class MovieManager {
 
         Stream.of(
                 FilesRegisterable.class,
-                HTTPRegisterable.class,
                 MySQLRegisterable.class,
+                TMDBRegisterable.class,
+                ManagersRegisterable.class,
                 RoutesRegisterable.class,
+                HTTPRegisterable.class,
                 ShutdownHookRegisterable.class,
                 ConsoleRegisterable.class
         ).forEach(r -> {
@@ -32,6 +36,7 @@ public final class MovieManager {
                 injector.set(injector.get().createChildInjector(new BindingSetterModule(
                         registerable.getProviders(),
                         registerable.getAnnotatedBindings(),
+                        registerable.getTypeLiterals(),
                         registerable.getStaticInjections().toArray(new Class[]{})
                 )));
             }

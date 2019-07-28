@@ -16,15 +16,15 @@ public final class ResponseHandler {
     private final List<Route> routes = new ArrayList<>();
 
     public NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
-        final String format = "<html><body><h1>%s</h1></body></html>";
-
         for (Route route : routes) {
-            if (session.getUri().contains(route.getRoute())) {
-                return NanoHTTPD.newFixedLengthResponse(String.format(format, route.run(session.getParameters())));
+            if (session.getUri().toLowerCase().replace("/", "").startsWith(route.getRoute())) {
+                NanoHTTPD.Response response = NanoHTTPD.newFixedLengthResponse(route.run(session.getParameters()));
+                response.addHeader("Content-Type", "application/json");
+                return response;
             }
         }
 
-        return NanoHTTPD.newFixedLengthResponse(String.format(format, "null"));
+        return NanoHTTPD.newFixedLengthResponse("null");
     }
 
     public List<Route> getRoutes() {
