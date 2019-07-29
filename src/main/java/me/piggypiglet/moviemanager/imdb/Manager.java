@@ -3,7 +3,6 @@ package me.piggypiglet.moviemanager.imdb;
 import me.piggypiglet.moviemanager.utils.SearchUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public abstract class Manager<T extends SearchUtils.Searchable> {
         items = populate(folders);
     }
 
-    public Collection<T> search(String query) {
+    public List<T> search(String query) {
         return SearchUtils.search(new ArrayList<>(items.values()), query);
     }
 

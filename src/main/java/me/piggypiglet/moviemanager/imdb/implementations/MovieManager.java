@@ -19,7 +19,7 @@ import java.util.Map;
 // https://www.piggypiglet.me
 // ------------------------------
 @Singleton
-public final class TmdbMovieManager extends Manager<Movie> {
+public final class MovieManager extends Manager<Movie> {
     @Inject @Config private FileConfiguration config;
 
     @Override
@@ -27,13 +27,12 @@ public final class TmdbMovieManager extends Manager<Movie> {
         Map<Integer, Movie> movies = new HashMap<>();
         TmdbSearch search = new TmdbApi(config.getString("tmdb.api-key")).getSearch();
 
-        int i = 0;
-        for (String movie : data) {
-            List<MovieDb> foundMovies = search.searchMovie(movie, null, null, true, null).getResults();
+        for (int i = 0, dataSize = data.size(); i < dataSize; i++) {
+            List<MovieDb> foundMovies = search.searchMovie(data.get(i), null, null, true, null).getResults();
 
             if (foundMovies.size() > 0) {
-                MovieDb movieDb = foundMovies.get(i);
-                movies.put(i++, new Movie(movieDb.getTitle(), movieDb.getPosterPath(), movieDb.getOverview()));
+                MovieDb movieDb = foundMovies.get(0);
+                movies.put(i, new Movie(movieDb.getTitle(), "https://image.tmdb.org/t/p/original" + movieDb.getPosterPath(), movieDb.getOverview()));
             }
         }
 

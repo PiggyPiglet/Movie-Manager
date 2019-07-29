@@ -1,8 +1,9 @@
 package me.piggypiglet.moviemanager.registerables.implementations.imdb;
 
 import com.google.inject.Inject;
-import me.piggypiglet.moviemanager.imdb.implementations.TmdbMovieManager;
+import me.piggypiglet.moviemanager.imdb.Manager;
 import me.piggypiglet.moviemanager.registerables.Registerable;
+import org.reflections.Reflections;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +13,11 @@ import java.util.List;
 // https://www.piggypiglet.me
 // ------------------------------
 public final class ManagersRegisterable extends Registerable {
-//    @Inject private Reflections reflections;
-//    @Inject private Injector injector;
-    @Inject private TmdbMovieManager movieManager;
+    @Inject private Reflections reflections;
 
     @Override
     protected void execute() {
-        List<String> movies = Arrays.asList("scorch trials", "maze runner");
-        movieManager.setup(movies);
+        List<String> movies = Arrays.asList("scorch trials", "hunger games");
+        reflections.getSubTypesOf(Manager.class).stream().map(injector::getInstance).forEach(m -> m.setup(movies));
     }
 }

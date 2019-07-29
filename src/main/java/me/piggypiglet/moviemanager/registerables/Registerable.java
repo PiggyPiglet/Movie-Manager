@@ -1,5 +1,6 @@
 package me.piggypiglet.moviemanager.registerables;
 
+import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import me.piggypiglet.moviemanager.guice.objects.AnnotatedBinding;
 
@@ -11,6 +12,8 @@ import java.util.*;
 // https://www.piggypiglet.me
 // ------------------------------
 public abstract class Registerable {
+    protected Injector injector;
+
     private final Map<Class, Object> providers = new HashMap<>();
     private final List<AnnotatedBinding> annotatedBindings = new ArrayList<>();
     private final Map<TypeLiteral, Class> typeLiterals = new HashMap<>();
@@ -33,7 +36,7 @@ public abstract class Registerable {
         );
     }
 
-    protected void addTypeLiteral(TypeLiteral typeLiteral, Class clazz) {
+    protected <T> void addTypeLiteral(TypeLiteral<T> typeLiteral, Class clazz) {
         typeLiterals.put(typeLiteral, clazz);
     }
 
@@ -41,7 +44,9 @@ public abstract class Registerable {
         staticInjections.addAll(Arrays.asList(classes));
     }
 
-    public void run() {
+    // provide injector via run method as the injectable injector won't be updated
+    public void run(Injector injector) {
+        this.injector = injector;
         execute();
     }
 

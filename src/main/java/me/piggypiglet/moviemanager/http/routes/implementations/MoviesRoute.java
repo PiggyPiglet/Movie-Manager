@@ -2,7 +2,7 @@ package me.piggypiglet.moviemanager.http.routes.implementations;
 
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.http.routes.Route;
-import me.piggypiglet.moviemanager.imdb.implementations.TmdbMovieManager;
+import me.piggypiglet.moviemanager.imdb.implementations.MovieManager;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
 // https://www.piggypiglet.me
 // ------------------------------
 public final class MoviesRoute extends Route {
-    @Inject private TmdbMovieManager tmdbMovieManager;
+    @Inject private MovieManager movieManager;
 
     public MoviesRoute() {
         super("movies");
@@ -20,21 +20,10 @@ public final class MoviesRoute extends Route {
 
     @Override
     protected String provide(Map<String, List<String>> params) {
-//        CompletableFuture<List<Movie>> futureMovies = moviesTable.getMovies();
-//
-//        //noinspection StatementWithEmptyBody
-//        while (!futureMovies.isDone()) {}
-//
-//        List<Movie> movies = new ArrayList<>();
-//
-//        try {
-//            movies = futureMovies.get();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return gson.toJson(movies);
+        if (params.containsKey("search")) {
+            return gson.toJson(movieManager.search(params.get("search").get(0)).get(0));
+        }
 
-        return gson.toJson(tmdbMovieManager.getAll().values());
+        return gson.toJson(movieManager.getAll().values());
     }
 }

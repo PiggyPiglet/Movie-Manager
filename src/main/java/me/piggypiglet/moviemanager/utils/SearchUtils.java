@@ -1,9 +1,10 @@
 package me.piggypiglet.moviemanager.utils;
 
+import com.google.common.collect.ImmutableList;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,12 +14,13 @@ import java.util.stream.Collectors;
 // ------------------------------
 public final class SearchUtils {
     @SuppressWarnings("unchecked")
-    public static <T extends Searchable> Collection<T> search(List<Searchable> items, String query) {
-        return items.stream()
-                .map(i -> new SearchPair(i, query))
-                .sorted()
+    public static <T extends Searchable> ImmutableList<T> search(List<Searchable> items, String query) {
+        List<SearchPair> pairs = items.stream().map(i -> new SearchPair(i, query)).sorted().collect(Collectors.toList());
+        Collections.reverse(pairs);
+
+        return pairs.stream()
                 .map(i -> (T) i.item)
-                .collect(Collectors.toList());
+                .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
     }
 
     private static final class SearchPair implements Comparable {
@@ -34,9 +36,14 @@ public final class SearchUtils {
 
         @Override
         public int compareTo(@Nonnull Object o) {
-            if (!(o instanceof Searchable)) return 0;
+            if (!(o instanceof SearchPair)) return 0;
 
-            return similarity - FuzzySearch.weightedRatio(((Searchable) o).getTitle(), query);
+            return similarity - ((SearchPair) o).similarity;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("SearchPair(item=%s, query=%s, similarity=%s)", item, query, similarity);
         }
     }
 

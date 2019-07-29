@@ -29,4 +29,9 @@ public final class Movie implements SearchUtils.Searchable {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Movie(title=%s, img=%s, description=%s)", title, img, description);
+    }
 }

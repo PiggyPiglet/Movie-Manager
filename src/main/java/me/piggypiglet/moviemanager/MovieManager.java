@@ -30,13 +30,12 @@ public final class MovieManager {
                 ConsoleRegisterable.class
         ).forEach(r -> {
             Registerable registerable = injector.get().getInstance(r);
-            registerable.run();
+            registerable.run(injector.get());
 
             if (registerable.getProviders().size() > 0 || registerable.getAnnotatedBindings().size() > 0 || registerable.getStaticInjections().size() > 0) {
                 injector.set(injector.get().createChildInjector(new BindingSetterModule(
                         registerable.getProviders(),
                         registerable.getAnnotatedBindings(),
-                        registerable.getTypeLiterals(),
                         registerable.getStaticInjections().toArray(new Class[]{})
                 )));
             }
