@@ -3,6 +3,7 @@ package me.piggypiglet.moviemanager.registerables.implementations.imdb;
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.imdb.Manager;
 import me.piggypiglet.moviemanager.registerables.Registerable;
+import me.piggypiglet.moviemanager.utils.FileUtils;
 import org.reflections.Reflections;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public final class ManagersRegisterable extends Registerable {
 
     @Override
     protected void execute() {
-        List<String> movies = Arrays.asList("scorch trials", "hunger games");
+        List<String> movies = Arrays.asList(FileUtils.getSubFiles("public/movies/", true));
         reflections.getSubTypesOf(Manager.class).stream().map(injector::getInstance).forEach(m -> m.setup(movies));
     }
 }

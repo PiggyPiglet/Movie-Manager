@@ -46,4 +46,20 @@ public final class FileUtils {
 
         return null;
     }
+
+    // switch to java nio.2 alternative
+    // https://stackoverflow.com/a/5125258/7204468
+    public static String[] getSubFiles(String dir, boolean foldersOnly) {
+        File file = new File(dir);
+
+        if (file.exists()) {
+            if (foldersOnly && file.isDirectory()) {
+                return file.list((c, n) -> new File(c, n).isDirectory());
+            }
+
+            return file.list();
+        }
+
+        return new String[0];
+    }
 }
