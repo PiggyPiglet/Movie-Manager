@@ -2,7 +2,7 @@ package me.piggypiglet.moviemanager.http.responses;
 
 import com.google.inject.Singleton;
 import fi.iki.elonen.NanoHTTPD;
-import me.piggypiglet.moviemanager.http.routes.Route;
+import me.piggypiglet.moviemanager.http.responses.routes.Route;
 
 import java.util.ArrayList;
 import java.util.List;

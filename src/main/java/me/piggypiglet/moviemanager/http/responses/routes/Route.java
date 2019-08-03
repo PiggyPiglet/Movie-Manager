@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.http.routes;
+package me.piggypiglet.moviemanager.http.responses.routes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

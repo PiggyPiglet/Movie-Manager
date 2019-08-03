@@ -5,6 +5,7 @@ import me.piggypiglet.moviemanager.guice.modules.BindingSetterModule;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.registerables.implementations.*;
 import me.piggypiglet.moviemanager.registerables.implementations.imdb.ManagersRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.imdb.MySQLRegisterable;
 import me.piggypiglet.moviemanager.registerables.implementations.imdb.TMDBRegisterable;
 import org.slf4j.LoggerFactory;
 

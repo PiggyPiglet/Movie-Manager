@@ -2,7 +2,7 @@ package me.piggypiglet.moviemanager.registerables.implementations;
 
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.http.responses.ResponseHandler;
-import me.piggypiglet.moviemanager.http.routes.Route;
+import me.piggypiglet.moviemanager.http.responses.routes.Route;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import org.reflections.Reflections;
 

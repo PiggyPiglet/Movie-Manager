@@ -3,8 +3,8 @@ package me.piggypiglet.moviemanager.registerables.implementations;
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.file.FileManager;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.Config;
-import me.piggypiglet.moviemanager.guice.annotations.SQL;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
+import me.piggypiglet.moviemanager.guice.annotations.file.SQL;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 
 // ------------------------------

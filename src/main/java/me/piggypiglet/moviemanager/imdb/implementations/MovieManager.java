@@ -6,13 +6,13 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.MovieDb;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.Config;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
 import me.piggypiglet.moviemanager.imdb.Manager;
+import me.piggypiglet.moviemanager.mysql.implementations.MoviesTable;
 import me.piggypiglet.moviemanager.objects.Movie;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -22,17 +22,21 @@ import java.util.Map;
 public final class MovieManager extends Manager<Movie> {
     @Inject @Config private FileConfiguration config;
 
+    protected MovieManager() {
+        super(new MoviesTable());
+    }
+
     @Override
-    protected Map<Integer, Movie> populate(List<String> data) {
-        Map<Integer, Movie> movies = new HashMap<>();
+    protected List<Movie> populate(String parentPath, List<String> data) {
+        List<Movie> movies = new ArrayList<>();
         TmdbSearch search = new TmdbApi(config.getString("tmdb.api-key")).getSearch();
 
-        for (int i = 0, dataSize = data.size(); i < dataSize; i++) {
-            List<MovieDb> foundMovies = search.searchMovie(data.get(i), null, null, true, null).getResults();
+        for (String datum : data) {
+            List<MovieDb> foundMovies = search.searchMovie(datum, null, null, true, null).getResults();
 
             if (foundMovies.size() > 0) {
                 MovieDb movieDb = foundMovies.get(0);
-                movies.put(i, new Movie(movieDb.getTitle(), "https://image.tmdb.org/t/p/original" + movieDb.getPosterPath(), movieDb.getOverview()));
+                movies.add(new Movie(movieDb.getTitle(), "https://image.tmdb.org/t/p/original" + movieDb.getPosterPath(), movieDb.getOverview(), "null"));
             }
         }
 

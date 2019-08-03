@@ -3,6 +3,7 @@ package me.piggypiglet.moviemanager;
 import co.aikar.idb.DB;
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.http.HTTPServer;
+import me.piggypiglet.moviemanager.mysql.implementations.MoviesTable;
 import me.piggypiglet.moviemanager.task.Task;
 
 // ------------------------------
@@ -10,10 +11,13 @@ import me.piggypiglet.moviemanager.task.Task;
 // https://www.piggypiglet.me
 // ------------------------------
 public final class ShutdownHook extends Thread {
+    @Inject private MoviesTable moviesTable;
     @Inject private HTTPServer httpServer;
 
     @Override
     public void run() {
+
+
         Task.shutdown();
         httpServer.stop();
         DB.close();

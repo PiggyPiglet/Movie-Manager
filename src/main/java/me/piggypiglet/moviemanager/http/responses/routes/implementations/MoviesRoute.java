@@ -1,7 +1,7 @@
-package me.piggypiglet.moviemanager.http.routes.implementations;
+package me.piggypiglet.moviemanager.http.responses.routes.implementations;
 
 import com.google.inject.Inject;
-import me.piggypiglet.moviemanager.http.routes.Route;
+import me.piggypiglet.moviemanager.http.responses.routes.Route;
 import me.piggypiglet.moviemanager.imdb.implementations.MovieManager;
 
 import java.util.List;
@@ -24,6 +24,6 @@ public final class MoviesRoute extends Route {
             return gson.toJson(movieManager.search(params.get("search").get(0)).get(0));
         }
 
-        return gson.toJson(movieManager.getAll().values());
+        return gson.toJson(movieManager.getAll());
     }
 }

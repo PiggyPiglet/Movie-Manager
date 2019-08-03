@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fi.iki.elonen.NanoHTTPD;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.Config;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
 import me.piggypiglet.moviemanager.http.responses.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

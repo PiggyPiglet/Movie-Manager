@@ -1,12 +1,12 @@
-package me.piggypiglet.moviemanager.registerables.implementations;
+package me.piggypiglet.moviemanager.registerables.implementations.imdb;
 
 import co.aikar.idb.DB;
 import co.aikar.idb.DatabaseOptions;
 import co.aikar.idb.PooledDatabaseOptions;
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.Config;
-import me.piggypiglet.moviemanager.guice.annotations.SQL;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
+import me.piggypiglet.moviemanager.guice.annotations.file.SQL;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.task.Task;
 import org.slf4j.LoggerFactory;

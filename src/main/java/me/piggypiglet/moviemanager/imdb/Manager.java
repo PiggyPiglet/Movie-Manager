@@ -1,33 +1,39 @@
 package me.piggypiglet.moviemanager.imdb;
 
+import me.piggypiglet.moviemanager.mysql.Table;
 import me.piggypiglet.moviemanager.utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
 // https://www.piggypiglet.me
 // ------------------------------
-public abstract class Manager<T extends SearchUtils.Searchable> {
-    private Map<Integer, T> items;
+public abstract class Manager<S extends SearchUtils.Searchable> {
+    private final Table<S> table;
+    private List<S> items = new ArrayList<>();
 
-    protected abstract Map<Integer, T> populate(List<String> data);
-
-    public void setup(List<String> folders) {
-        items = populate(folders);
+    protected Manager(final Table<S> table) {
+        this.table = table;
     }
 
-    public List<T> search(String query) {
-        return SearchUtils.search(new ArrayList<>(items.values()), query);
+    protected abstract List<S> populate(String parentPath, List<String> data);
+
+    public void setup(String parentPath, List<String> folders) {
+        table.getAll().whenComplete((s, t) -> {
+            items.addAll(s);
+            items.addAll(populate(parentPath, folders));
+            System.out.println(items);
+        });
     }
 
-    public T get(int id) {
-        return items.get(id);
+    @SuppressWarnings("unchecked")
+    public List<S> search(String query) {
+        return SearchUtils.search((List<SearchUtils.Searchable>) items, query);
     }
 
-    public Map<Integer, T> getAll() {
+    public List<S> getAll() {
         return items;
     }
 }

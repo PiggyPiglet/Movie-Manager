@@ -3,7 +3,7 @@ package me.piggypiglet.moviemanager.registerables.implementations.imdb;
 import com.google.inject.Inject;
 import info.movito.themoviedbapi.TmdbApi;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.Config;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 
 // ------------------------------

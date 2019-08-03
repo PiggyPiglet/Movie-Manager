@@ -19,6 +19,6 @@ public final class ManagersRegisterable extends Registerable {
     @Override
     protected void execute() {
         List<String> movies = Arrays.asList(FileUtils.getSubFiles("public/movies/", true));
-        reflections.getSubTypesOf(Manager.class).stream().map(injector::getInstance).forEach(m -> m.setup(movies));
+        reflections.getSubTypesOf(Manager.class).stream().map(injector::getInstance).forEach(m -> m.setup("public/movies/", movies));
     }
 }

@@ -10,11 +10,13 @@ public final class Movie implements SearchUtils.Searchable {
     private final String title;
     private final String img;
     private final String description;
+    private final String url;
 
-    public Movie(String title, String img, String description) {
+    public Movie(String title, String img, String description, String url) {
         this.title = title;
         this.img = img;
         this.description = description;
+        this.url = url;
     }
 
     @Override
@@ -28,6 +30,10 @@ public final class Movie implements SearchUtils.Searchable {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override

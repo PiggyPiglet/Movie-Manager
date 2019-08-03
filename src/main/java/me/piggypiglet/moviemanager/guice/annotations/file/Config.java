@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.guice.annotations;
+package me.piggypiglet.moviemanager.guice.annotations.file;
 
 import com.google.inject.BindingAnnotation;
 
@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 // ------------------------------
 @BindingAnnotation
 @Target({ElementType.FIELD}) @Retention(RetentionPolicy.RUNTIME)
-public @interface SQL {
+public @interface Config {
 }
