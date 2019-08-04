@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import me.piggypiglet.moviemanager.guice.modules.BindingSetterModule;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.registerables.implementations.*;
-import me.piggypiglet.moviemanager.registerables.implementations.imdb.ManagersRegisterable;
-import me.piggypiglet.moviemanager.registerables.implementations.imdb.TMDBRegisterable;
 import me.piggypiglet.moviemanager.registerables.implementations.mysql.MySQLRegisterable;
 import me.piggypiglet.moviemanager.registerables.implementations.mysql.MySQLSavingRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.tmdb.ManagersRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.tmdb.TMDBRegisterable;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicReference;

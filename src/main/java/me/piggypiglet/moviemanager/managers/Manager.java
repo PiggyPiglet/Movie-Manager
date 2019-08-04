@@ -13,22 +13,23 @@ import java.util.stream.Collectors;
 // ------------------------------
 public abstract class Manager<S extends SearchUtils.Searchable> {
     private final Table<S> table;
-    private final List<S> items = new ArrayList<>();
+
+    protected final List<S> items = new ArrayList<>();
 
     protected Manager(final Table<S> table) {
         this.table = table;
     }
 
-    protected abstract List<S> populate(String parentPath, List<String> data);
+    protected abstract void populate(String parentPath, List<String> data);
 
     public void setup(String parentPath, List<String> folders) {
         table.getAll().whenComplete((s, t) -> {
             items.addAll(s);
 
             List<String> remaining = new ArrayList<>(folders);
-            remaining.removeAll(items.stream().map(S::getTitle).collect(Collectors.toList()));
+            remaining.removeAll(items.stream().map(S::getOgTitle).collect(Collectors.toList()));
 
-            items.addAll(populate(parentPath, remaining));
+            populate(parentPath, remaining);
         });
     }
 
@@ -38,7 +39,7 @@ public abstract class Manager<S extends SearchUtils.Searchable> {
     }
 
     public List<S> getAll() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     public Table<S> getTable() {

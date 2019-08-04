@@ -13,5 +13,9 @@
 
   "tmdb": {
     "api-key": "<token>"
-  }
+  },
+
+  "public-url": "<url>",
+  "movie-dir": "<directory>",
+  "safe-interval": "15 mins"
 }

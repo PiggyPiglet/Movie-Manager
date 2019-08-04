@@ -24,7 +24,7 @@ public final class ConsoleRegisterable extends Registerable {
                 switch (input.nextLine().toLowerCase()) {
                     case "stop": System.exit(0); break;
                     case "add-movie":
-                        moviesTable.addMovie(new Movie("test", "test", "test", "null"));
+                        moviesTable.addMovie(new Movie("test", "test", "test", "test", "null"));
                         break;
                 }
             }

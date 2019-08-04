@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.registerables.implementations.imdb;
+package me.piggypiglet.moviemanager.registerables.implementations.tmdb;
 
 import com.google.inject.Inject;
 import info.movito.themoviedbapi.TmdbApi;

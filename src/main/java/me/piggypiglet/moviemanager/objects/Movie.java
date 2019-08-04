@@ -8,12 +8,14 @@ import me.piggypiglet.moviemanager.utils.SearchUtils;
 // ------------------------------
 public final class Movie implements SearchUtils.Searchable {
     private final String title;
+    private final String ogTitle;
     private final String img;
     private final String description;
     private final String path;
 
-    public Movie(String title, String img, String description, String path) {
+    public Movie(String title, String ogTitle, String img, String description, String path) {
         this.title = title;
+        this.ogTitle = ogTitle;
         this.img = img;
         this.description = description;
         this.path = path;
@@ -22,6 +24,11 @@ public final class Movie implements SearchUtils.Searchable {
     @Override
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getOgTitle() {
+        return ogTitle;
     }
 
     public String getImg() {

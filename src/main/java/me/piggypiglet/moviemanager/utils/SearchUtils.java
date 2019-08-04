@@ -49,5 +49,7 @@ public final class SearchUtils {
 
     public interface Searchable {
         String getTitle();
+
+        String getOgTitle();
     }
 }

@@ -21,7 +21,7 @@ public final class MoviesRoute extends Route {
     @Override
     protected String provide(Map<String, List<String>> params) {
         if (params.containsKey("search")) {
-            return gson.toJson(movieManager.search(params.get("search").get(0)).get(0));
+            return gson.toJson(movieManager.search(params.get("search").get(0)));
         }
 
         return gson.toJson(movieManager.getAll());

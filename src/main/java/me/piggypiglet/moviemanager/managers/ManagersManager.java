@@ -1,7 +1,11 @@
 package me.piggypiglet.moviemanager.managers;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
+import me.piggypiglet.moviemanager.guice.annotations.file.Config;
 import me.piggypiglet.moviemanager.utils.FileUtils;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,14 +18,18 @@ import java.util.List;
 // ------------------------------
 @Singleton
 public final class ManagersManager {
+    @Inject @Config private FileConfiguration config;
+
     private final List<Manager> managers = new ArrayList<>();
 
     public void process() {
-        List<String> movies = Arrays.asList(FileUtils.getSubFiles("public/movies/", (f, n) -> new File(f, n).isDirectory()));
-        managers.forEach(m -> m.setup("public/movies/", movies));
+        List<String> movies = Arrays.asList(FileUtils.getSubFiles(config.getString("movie-dir"), (f, n) -> new File(f, n).isDirectory()));
+        managers.forEach(m -> m.setup(config.getString("movie-dir"), movies));
     }
 
+    @SuppressWarnings("unchecked")
     public void save() {
+        LoggerFactory.getLogger("Managers").info("Saving all data from managers.");
         managers.forEach(m -> m.getAll().forEach(m.getTable()::save));
     }
 

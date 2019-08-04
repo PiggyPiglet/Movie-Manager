@@ -37,6 +37,7 @@ public final class Task {
 
     public static void shutdown() {
         EXECUTOR.shutdownNow();
+        MYSQL_EXECUTOR.shutdown();
         SCHEDULER.shutdownNow();
     }
 

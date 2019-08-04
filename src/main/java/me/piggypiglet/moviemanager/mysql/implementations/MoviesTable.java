@@ -18,17 +18,17 @@ public final class MoviesTable extends Table<Movie> {
     }
 
     public void addMovie(Movie movie) {
-        create().keys("title", "img", "desc", "path").values(movie.getTitle(), movie.getImg(), movie.getDescription(), movie.getPath()).build().execute();
+        create().keys("title", "og_title", "img", "desc", "path").values(movie.getTitle(), movie.getOgTitle(), movie.getImg(), movie.getDescription(), movie.getPath()).build().execute();
     }
 
     @Override
     public CompletableFuture<List<Movie>> getAll() {
-        return getter().build().getAll().thenApply(rows -> rows.stream().map(r -> new Movie(r.getString("title"), r.getString("img"), r.getString("desc"), r.getString("path"))).collect(Collectors.toList()));
+        return getter().build().getAll().thenApply(rows -> rows.stream().map(r -> new Movie(r.getString("title"), r.getString("og_title"), r.getString("img"), r.getString("desc"), r.getString("path"))).collect(Collectors.toList()));
     }
 
     @Override
     public void save(Movie movie) {
-        Location location = Location.builder().key("title").value(movie.getTitle()).build();
+        Location location = Location.builder().key("og_title").value(movie.getOgTitle()).build();
 
         if (!getter().locations(location).build().exists()) {
             addMovie(movie);
