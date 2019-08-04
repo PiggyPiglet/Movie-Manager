@@ -1,12 +1,14 @@
 package me.piggypiglet.moviemanager;
 
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import me.piggypiglet.moviemanager.guice.modules.BindingSetterModule;
 import me.piggypiglet.moviemanager.registerables.Registerable;
 import me.piggypiglet.moviemanager.registerables.implementations.*;
 import me.piggypiglet.moviemanager.registerables.implementations.imdb.ManagersRegisterable;
-import me.piggypiglet.moviemanager.registerables.implementations.imdb.MySQLRegisterable;
 import me.piggypiglet.moviemanager.registerables.implementations.imdb.TMDBRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.mysql.MySQLRegisterable;
+import me.piggypiglet.moviemanager.registerables.implementations.mysql.MySQLSavingRegisterable;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -16,15 +18,17 @@ import java.util.stream.Stream;
 // Copyright (c) PiggyPiglet 2019
 // https://www.piggypiglet.me
 // ------------------------------
+@Singleton
 public final class MovieManager {
     void start(Injector parentInjector) {
-        AtomicReference<Injector> injector = new AtomicReference<>(parentInjector);
+        final AtomicReference<Injector> injector = new AtomicReference<>(parentInjector);
 
         Stream.of(
                 FilesRegisterable.class,
                 MySQLRegisterable.class,
                 TMDBRegisterable.class,
                 ManagersRegisterable.class,
+                MySQLSavingRegisterable.class,
                 RoutesRegisterable.class,
                 HTTPRegisterable.class,
                 ShutdownHookRegisterable.class,

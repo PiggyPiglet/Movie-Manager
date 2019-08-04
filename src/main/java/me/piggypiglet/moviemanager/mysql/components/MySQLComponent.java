@@ -1,6 +1,7 @@
 package me.piggypiglet.moviemanager.mysql.components;
 
 import co.aikar.idb.DbRow;
+import me.piggypiglet.moviemanager.mysql.components.row.objects.Location;
 import me.piggypiglet.moviemanager.mysql.components.row.objects.Row;
 import me.piggypiglet.moviemanager.utils.MySQLUtils;
 
@@ -18,5 +19,12 @@ public abstract class MySQLComponent {
 
     protected CompletableFuture<List<DbRow>> getAll(String table) {
         return MySQLUtils.getRows(table);
+    }
+
+    protected boolean exists(String table, List<Location> locations) {
+        String[] keys = locations.stream().map(Location::getKey).toArray(String[]::new);
+        Object[] values = locations.stream().map(Location::getValue).toArray();
+
+        return MySQLUtils.exists(table, keys, values);
     }
 }

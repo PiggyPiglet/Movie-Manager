@@ -4,6 +4,7 @@ import me.piggypiglet.moviemanager.MovieManager;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,12 +50,12 @@ public final class FileUtils {
 
     // switch to java nio.2 alternative
     // https://stackoverflow.com/a/5125258/7204468
-    public static String[] getSubFiles(String dir, boolean foldersOnly) {
+    public static String[] getSubFiles(String dir, FilenameFilter filter) {
         File file = new File(dir);
 
         if (file.exists()) {
-            if (foldersOnly && file.isDirectory()) {
-                return file.list((c, n) -> new File(c, n).isDirectory());
+            if (filter != null) {
+                return file.list(filter);
             }
 
             return file.list();

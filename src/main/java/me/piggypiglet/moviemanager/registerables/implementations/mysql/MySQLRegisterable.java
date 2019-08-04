@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.registerables.implementations.imdb;
+package me.piggypiglet.moviemanager.registerables.implementations.mysql;
 
 import co.aikar.idb.DB;
 import co.aikar.idb.DatabaseOptions;

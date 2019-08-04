@@ -1,10 +1,11 @@
-package me.piggypiglet.moviemanager.imdb;
+package me.piggypiglet.moviemanager.managers;
 
 import me.piggypiglet.moviemanager.mysql.Table;
 import me.piggypiglet.moviemanager.utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -12,7 +13,7 @@ import java.util.List;
 // ------------------------------
 public abstract class Manager<S extends SearchUtils.Searchable> {
     private final Table<S> table;
-    private List<S> items = new ArrayList<>();
+    private final List<S> items = new ArrayList<>();
 
     protected Manager(final Table<S> table) {
         this.table = table;
@@ -23,8 +24,11 @@ public abstract class Manager<S extends SearchUtils.Searchable> {
     public void setup(String parentPath, List<String> folders) {
         table.getAll().whenComplete((s, t) -> {
             items.addAll(s);
-            items.addAll(populate(parentPath, folders));
-            System.out.println(items);
+
+            List<String> remaining = new ArrayList<>(folders);
+            remaining.removeAll(items.stream().map(S::getTitle).collect(Collectors.toList()));
+
+            items.addAll(populate(parentPath, remaining));
         });
     }
 
@@ -35,5 +39,9 @@ public abstract class Manager<S extends SearchUtils.Searchable> {
 
     public List<S> getAll() {
         return items;
+    }
+
+    public Table<S> getTable() {
+        return table;
     }
 }

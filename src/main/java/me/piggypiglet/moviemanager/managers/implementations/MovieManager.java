@@ -1,4 +1,4 @@
-package me.piggypiglet.moviemanager.imdb.implementations;
+package me.piggypiglet.moviemanager.managers.implementations;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -7,7 +7,7 @@ import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.MovieDb;
 import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
 import me.piggypiglet.moviemanager.guice.annotations.file.Config;
-import me.piggypiglet.moviemanager.imdb.Manager;
+import me.piggypiglet.moviemanager.managers.Manager;
 import me.piggypiglet.moviemanager.mysql.implementations.MoviesTable;
 import me.piggypiglet.moviemanager.objects.Movie;
 

@@ -2,7 +2,7 @@ package me.piggypiglet.moviemanager.http.responses.routes.implementations;
 
 import com.google.inject.Inject;
 import me.piggypiglet.moviemanager.http.responses.routes.Route;
-import me.piggypiglet.moviemanager.imdb.implementations.MovieManager;
+import me.piggypiglet.moviemanager.managers.implementations.MovieManager;
 
 import java.util.List;
 import java.util.Map;

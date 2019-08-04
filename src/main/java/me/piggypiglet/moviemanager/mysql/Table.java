@@ -19,6 +19,8 @@ public abstract class Table<T> {
 
     public abstract CompletableFuture<List<T>> getAll();
 
+    public abstract void save(T item);
+
     protected RowCreator.Builder create() {
         return RowCreator.builder(table);
     }

@@ -1,6 +1,5 @@
 package me.piggypiglet.moviemanager.task;
 
-import org.slf4j.LoggerFactory;
 import sh.okx.timeapi.TimeAPI;
 
 import java.util.concurrent.ExecutorService;
@@ -19,37 +18,34 @@ public final class Task {
     private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(10);
 
     public static void async(final Consumer<GRunnable> task) {
-        EXECUTOR.submit(new GRunnable() {
-            @Override
-            public void run() {
-                task.accept(this);
-            }
-        });
+        EXECUTOR.submit(gRunnable(task));
     }
 
-    public static void async(final Consumer<GRunnable> task, String time) {
-        TimeAPI timeAPI = new TimeAPI(time);
+    public static void async(final Consumer<GRunnable> task, String time, boolean repeat) {
+        long millis = new TimeAPI(time).getMilliseconds();
 
-        SCHEDULER.schedule(new GRunnable() {
-            @Override
-            public void run() {
-                task.accept(this);
-            }
-        }, timeAPI.getMilliseconds(), TimeUnit.MILLISECONDS);
+        if (repeat) {
+            SCHEDULER.scheduleAtFixedRate(gRunnable(task), millis, millis, TimeUnit.MILLISECONDS);
+        } else {
+            SCHEDULER.schedule(gRunnable(task), millis, TimeUnit.MILLISECONDS);
+        }
     }
 
     public static void mysql(final Consumer<GRunnable> task) {
-        MYSQL_EXECUTOR.submit(new GRunnable() {
-            @Override
-            public void run() {
-                task.accept(this);
-            }
-        });
+        MYSQL_EXECUTOR.submit(gRunnable(task));
     }
 
     public static void shutdown() {
-        LoggerFactory.getLogger("Task").info("Shutting down executor services.");
         EXECUTOR.shutdownNow();
         SCHEDULER.shutdownNow();
+    }
+
+    private static GRunnable gRunnable(final Consumer<GRunnable> consumer) {
+        return new GRunnable() {
+            @Override
+            public void run() {
+                consumer.accept(this);
+            }
+        };
     }
 }

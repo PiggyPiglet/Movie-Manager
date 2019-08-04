@@ -1,6 +1,7 @@
 package me.piggypiglet.moviemanager.mysql.implementations;
 
 import me.piggypiglet.moviemanager.mysql.Table;
+import me.piggypiglet.moviemanager.mysql.components.row.objects.Location;
 import me.piggypiglet.moviemanager.objects.Movie;
 
 import java.util.List;
@@ -17,11 +18,20 @@ public final class MoviesTable extends Table<Movie> {
     }
 
     public void addMovie(Movie movie) {
-        create().keys("title", "img", "desc", "url").values(movie.getTitle(), movie.getImg(), movie.getDescription(), movie.getUrl()).build().execute();
+        create().keys("title", "img", "desc", "path").values(movie.getTitle(), movie.getImg(), movie.getDescription(), movie.getPath()).build().execute();
     }
 
     @Override
     public CompletableFuture<List<Movie>> getAll() {
-        return getter().build().getAll().thenApply(rows -> rows.stream().map(r -> new Movie(r.getString("title"), r.getString("img"), r.getString("desc"), r.getString("url"))).collect(Collectors.toList()));
+        return getter().build().getAll().thenApply(rows -> rows.stream().map(r -> new Movie(r.getString("title"), r.getString("img"), r.getString("desc"), r.getString("path"))).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void save(Movie movie) {
+        Location location = Location.builder().key("title").value(movie.getTitle()).build();
+
+        if (!getter().locations(location).build().exists()) {
+            addMovie(movie);
+        }
     }
 }

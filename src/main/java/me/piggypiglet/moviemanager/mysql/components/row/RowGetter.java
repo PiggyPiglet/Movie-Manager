@@ -47,4 +47,8 @@ public final class RowGetter extends MySQLComponent {
     public CompletableFuture<List<DbRow>> getAll() {
         return getAll(table);
     }
+
+    public boolean exists() {
+        return exists(table, locations);
+    }
 }
