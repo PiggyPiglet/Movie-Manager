@@ -18,7 +18,6 @@ public final class MySQLSavingRegisterable extends Registerable {
 
     @Override
     protected void execute() {
-        LoggerFactory.getLogger("saving").info("saving scheduler setup");
         Task.async(r -> managersManager.save(), config.getString("save-interval"), true);
     }
 }

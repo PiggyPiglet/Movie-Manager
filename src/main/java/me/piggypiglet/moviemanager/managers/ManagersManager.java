@@ -29,8 +29,11 @@ public final class ManagersManager {
 
     @SuppressWarnings("unchecked")
     public void save() {
-        LoggerFactory.getLogger("Managers").info("Saving all data from managers.");
-        managers.forEach(m -> m.getAll().forEach(m.getTable()::save));
+        managers.forEach(m -> {
+            List<?> items = m.getAll();
+            items.forEach(m.getTable()::save);
+            LoggerFactory.getLogger("Managers").info("Saved " + items.size() + " items from " + m.getClass().getSimpleName());
+        });
     }
 
     public List<Manager> getManagers() {
