@@ -7,7 +7,7 @@ plugins {
 
 group 'me.piggypiglet'
 version '1.0.0'
-mainClassName = 'me.piggypiglet.moviemanager.MovieManagerBootstrap'
+mainClassName = 'me.piggypiglet.moviemanager.MovieManager'
 sourceCompatibility = 1.8
 
 repositories {
@@ -22,18 +22,12 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.inject:guice:+'
-    compile 'com.google.code.gson:gson:+'
-    compile 'commons-io:commons-io:+'
+    compile 'me.piggypiglet:framework-core:+'
+    compile 'me.piggypiglet:framework-logback:+'
+    compile 'me.piggypiglet:framework-console:+'
+    compile 'me.piggypiglet:framework-http:+'
+    compile 'me.piggypiglet:framework-mysql:+'
     compile 'info.movito:themoviedbapi:+'
-    compile 'org.reflections:reflections:+'
-    compile 'org.nanohttpd:nanohttpd:+'
-    compile 'org.slf4j:slf4j-simple:+'
-    compile 'me.piggypiglet:TimeAPI:+'
-    compile 'mysql:mysql-connector-java:5.1.33'
-    compile 'co.aikar:idb-core:1.0.0-SNAPSHOT'
-    compile 'com.zaxxer:HikariCP:2.4.1'
-    compile 'me.xdrop:fuzzywuzzy:+'
 }
 
 shadowJar {
@@ -41,6 +35,7 @@ shadowJar {
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     relocate 'co.aikar.commands', 'me.piggypiglet.moviemanager.idb'
+    relocate 'me.piggypiglet.framework', 'me.piggypiglet.moviemanager.framework'
 }
 
 compileJava.options.encoding = 'UTF-8'

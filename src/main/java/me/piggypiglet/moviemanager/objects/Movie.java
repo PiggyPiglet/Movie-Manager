@@ -1,6 +1,6 @@
 package me.piggypiglet.moviemanager.objects;
 
-import me.piggypiglet.moviemanager.utils.SearchUtils;
+import me.piggypiglet.framework.utils.SearchUtils;
 
 // ------------------------------
 // Copyright (c) PiggyPiglet 2019
@@ -22,11 +22,10 @@ public final class Movie implements SearchUtils.Searchable {
     }
 
     @Override
-    public String getTitle() {
+    public String getName() {
         return title;
     }
 
-    @Override
     public String getOgTitle() {
         return ogTitle;
     }

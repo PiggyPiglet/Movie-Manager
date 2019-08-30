@@ -1,8 +1,8 @@
-package me.piggypiglet.moviemanager.http.responses.routes.implementations;
+package me.piggypiglet.moviemanager.http;
 
 import com.google.inject.Inject;
-import me.piggypiglet.moviemanager.http.responses.routes.Route;
-import me.piggypiglet.moviemanager.managers.implementations.MovieManager;
+import me.piggypiglet.framework.http.responses.Route;
+import me.piggypiglet.moviemanager.managers.MovieManager;
 
 import java.util.List;
 import java.util.Map;

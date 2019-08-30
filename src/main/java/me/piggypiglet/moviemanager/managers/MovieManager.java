@@ -1,21 +1,22 @@
-package me.piggypiglet.moviemanager.managers.implementations;
+package me.piggypiglet.moviemanager.managers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.MovieDb;
-import me.piggypiglet.moviemanager.file.framework.FileConfiguration;
-import me.piggypiglet.moviemanager.guice.annotations.file.Config;
-import me.piggypiglet.moviemanager.managers.Manager;
-import me.piggypiglet.moviemanager.mysql.implementations.MoviesTable;
+import me.piggypiglet.framework.file.framework.FileConfiguration;
+import me.piggypiglet.framework.logging.Logger;
+import me.piggypiglet.framework.logging.LoggerFactory;
+import me.piggypiglet.framework.mysql.manager.MySQLManager;
+import me.piggypiglet.framework.utils.annotations.files.Config;
 import me.piggypiglet.moviemanager.objects.Movie;
+import me.piggypiglet.moviemanager.tables.MoviesTable;
 import me.piggypiglet.moviemanager.utils.FileUtils;
 import me.piggypiglet.moviemanager.utils.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 // ------------------------------
@@ -23,7 +24,7 @@ import java.util.List;
 // https://www.piggypiglet.me
 // ------------------------------
 @Singleton
-public final class MovieManager extends Manager<Movie> {
+public final class MovieManager extends MySQLManager<Movie> {
     @Inject private TmdbApi tmdbApi;
     @Inject @Config private FileConfiguration config;
 
@@ -34,18 +35,19 @@ public final class MovieManager extends Manager<Movie> {
     }
 
     @Override
-    protected void populate(String parentPath, List<String> data) {
+    protected void populate(final List<Movie> movies) {
+        final String parentPath = config.getString("movie-dir");
+        List<String> data = Arrays.asList(FileUtils.getSubFiles(parentPath, (f, n) -> new File(f, n).isDirectory()));
         int dataSize = data.size();
 
-        LOGGER.info("Importing {} movies, this could take a while depending on your internet speed. Estimated time is {} seconds.", dataSize, (dataSize / 40) * 4 + (dataSize / 2));
+        LOGGER.info("Importing %s movies, this could take a while depending on your internet speed. Estimated time is %s seconds.", dataSize, (dataSize / 40) * 4 + (dataSize / 2));
         TmdbSearch search = tmdbApi.getSearch();
 
         for (int i = 1; i < dataSize + 1; i++) {
             String datum = data.get(i - 1);
-            System.out.println(datum);
 
             if (i % 100 == 0) {
-                LOGGER.info("{} imported.", i);
+                LOGGER.info("%s imported.", i);
             }
 
             if (i % 40 == 0) {

@@ -1,16 +1,4 @@
 {
-  "http": {
-    "ip": "127.0.0.1",
-    "port": 8080
-  },
-
-  "mysql": {
-    "username": "movies",
-    "password": "password1",
-    "db": "database",
-    "host": "127.0.0.1:3306"
-  },
-
   "tmdb": {
     "api-key": "<token>"
   },
